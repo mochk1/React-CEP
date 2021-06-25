@@ -2,6 +2,7 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const webpack = require('webpack')
 
 module.exports = {
  mode: "development",
@@ -71,6 +72,12 @@ module.exports = {
    new HtmlWebpackPlugin({
        template: './src/index.html'
    }),
+   new webpack.DefinePlugin({
+    'process.env.NODE_ENV': JSON.stringify('development')
+}),
+new webpack.ProvidePlugin({
+  process: 'process/browser',
+}),
    new MiniCssExtractPlugin({ // plugin for controlling how compiled css will be outputted and named
      filename: "css/[name].css",
      chunkFilename: "css/[id].css"
